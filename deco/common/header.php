@@ -92,7 +92,7 @@ echo $bodyclass ? ' class="'.$bodyclass.'"' : '';
 				<?php echo public_nav_main(); ?>
 			<!-- search --> 
 			<div id="search-container">
-			    <?php echo bp_simple_search(); ?>
+			    <?php echo search_form(); ?>
 			    <?php echo link_to_item_search('Advanced Search'); ?>
 			</div>
 		</div><!-- end primary-nav -->
