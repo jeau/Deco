@@ -79,9 +79,10 @@ echo head_js();
 
 </head>
 <body<?php 
+isset($bodyclass) ? $bodyclass=$bodyclass : $bodyclass=null;
 $bodyclass .= ' '.deco_body_bg();
-echo $bodyid ? ' id="'.$bodyid.'"' : '';
-echo $bodyclass ? ' class="'.$bodyclass.'"' : '';
+echo isset($bodyid) ? ' id="'.$bodyid.'"' : $bodyid=null;
+echo isset($bodyclass) ? ' class="'.$bodyclass.'"' : $bodyclass=null;
 ?>>
 <?php fire_plugin_hook('public_body', array('view'=>$this)); ?>
 
@@ -104,14 +105,12 @@ echo $bodyclass ? ' class="'.$bodyclass.'"' : '';
 				echo link_to_home_page($logo);
 				if(get_theme_option('hide_header_text')){
 						$visibility='style="position: absolute; left: -999em;" ';
-					}else{
-						$visibility='';
 					}
 				}
 			?>	
 			
-			<h2 <?php echo $visibility;?>><?php echo link_to_home_page(); ?></h2>
-			<div <?php echo $visibility;?>class="tagline"><?php echo deco_get_tagline();?></div>
+			<h2 <?php echo isset($visibility) ? $visibility : null;?>><?php echo link_to_home_page(); ?></h2>
+			<div <?php echo isset($visibility) ? $visibility : null;?>class="tagline"><?php echo deco_get_tagline();?></div>
 		
 		</div>
 		</div>
