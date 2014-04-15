@@ -30,9 +30,12 @@
 	$index=0;
 	$videoIndex=0;
 	
-	
 	// If an item has an "embed code," treat it like a file and place at the top
-	echo ( $embedded = metadata($item, array('Item Type Metadata', 'Embed Code') ) ) ? $embedded : null;
+	if(element_exists('Item Type Metadata', 'Embed code')){
+		
+		echo $embedded=metadata($item, array('Item Type Metadata', 'Embed code')) ?  $embedded : null;
+		
+	}  
 	
 	// Docs Viewer custom placement
 	deco_docs_viewer($item,$files=null);
