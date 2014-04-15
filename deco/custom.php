@@ -19,6 +19,65 @@ function deco_body_bg(){
 	}
 }
 
+// custom display docs viewer
+function deco_docs_viewer($item,$files=null){
+		if (
+			(get_theme_option('Docs Viewer Placement')=='yes')
+			&&( 
+				(plugin_is_active('DocsViewer','2.0'))
+				&&(get_option('docsviewer_embed_public')==0) 
+			)
+			) {
+		foreach (loop('files', $item->Files) as $file){
+			$files[] = $file;	
+		}	
+		$view=get_view();
+		echo $view->docsViewer($files);
+		}			
+}
+
+
+// custom display images
+function deco_image($file,$mime,$img,$index){
+
+		$caption = (metadata($file,array('Dublin Core', 'Title'))) ? metadata($file, array('Dublin Core', 'Title')) : metadata('Item',array('Dublin Core', 'Title'));
+		
+		// images: the first one uses fullsize
+		if (($file->hasThumbnail()&&($index == 0)))
+		echo file_markup($file, array('linkToFile'=>true,'imageSize'=>'fullsize','linkAttributes'=>array('rel'=>'fancy_group', 'class'=>'fancyitem','title' => $caption)),array('class' => 'fullsize', 'id' => 'item-image'));
+		// images: the rest use the thumbnails
+		elseif (($file->hasThumbnail()&&($index !== 0)))
+		echo file_markup($file, array('imageSize'=>'square_thumbnail', 'linkToFile'=>true,'linkAttributes'=>array('rel'=>'fancy_group', 'class'=>'fancyitem','title' => $caption)),array('class' => 'square_thumbnail'));
+			
+		$index++;	
+}
+
+// custom display video
+function deco_videojs($file,$videoIndex,$mime,$videoJS_h264,$videoJS_webM,$videoJS_ogg){
+		echo '<div class="video-js-box">';
+		
+		echo '<video id="htmlvideo-'.$videoIndex.'" class="video-js" width="100%" controls preload="none" poster="'.img('vid-poster.jpg').'" data-setup="{}">';
+			echo '<source src="'.file_display_url($file,'original').'" ';
+			
+			// getting the video MIME Types
+			if (array_search($mime,$videoJS_h264) !== false) echo 'type=\'video/mp4; codecs="avc1.42E01E, mp4a.40.2"\' />';
+			elseif (array_search($mime,$videoJS_webM) !== false) echo 'type=\'video/webm; codecs="vp8, vorbis"\' />';
+			elseif (array_search($mime,$videoJS_ogg) !== false) echo 'type=\'video/ogg; codecs="theora, vorbis"\' />';
+			
+			// the Flash fallback
+			echo '<object id="flashvideo_'.$videoIndex.'" class="vjs-flash-fallback" scaling="fit" width="500" height="282" type="application/x-shockwave-flash" data="'.url('').'themes/deco/common/flowplayer/flowplayer-3.2.7.swf">';
+				echo '<param name="movie" value="'.url('').'themes/deco/common/flowplayer/flowplayer-3.2.7.swf" />';
+				echo '<param name="allowfullscreen" value="true" />';
+				echo '<param name="flashvars" value=\'config={"playlist":["'.img('vid-poster.jpg').'", {"url": "'.file_display_url($file,'original').'","autoPlay":false,"autoBuffering":true}]}\' />';
+				// the static image fallback as last resort
+				echo '<img src="'.img('vid-poster.jpg').'" scale="tofit" width="600" height="338" alt="Poster Image" title="No video playback capabilities." />';
+			echo '</object>';
+		echo '</video>';
+		echo deco_video_ResponsifyVideoScript($videoIndex);
+		echo '</div></br><br/>';
+		$videoIndex++;	
+}
+
 // get user-configured fonts for header call to Google Web Fonts API
 function deco_get_fonts(){
 	$primary=get_theme_option('decofont');
