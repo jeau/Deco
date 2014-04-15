@@ -30,10 +30,11 @@
 	$index=0;
 	$videoIndex=0;
 	
-	// If an item has an "embed code," treat it like a file and place at the top
+	// If an item has an "embed code," treat it like a file and place at the top, then hide the duplicate in the item metadata record
 	if(element_exists('Item Type Metadata', 'Embed code')){
 		
-		echo ( $embedded = metadata($item, array('Item Type Metadata','Embed code')) ) ?  $embedded : null;
+		echo ( $embedded=metadata($item, array('Item Type Metadata', 'Embed code'))) ?  $embedded : null;
+		echo '<style>div[id*="item-type-metadata-embed-code"]{display:none;}</style>';
 		
 	}  
 	
