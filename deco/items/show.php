@@ -33,7 +33,7 @@
 	// If an item has an "embed code," treat it like a file and place at the top
 	if(element_exists('Item Type Metadata', 'Embed code')){
 		
-		echo $embedded=metadata($item, array('Item Type Metadata', 'Embed code')) ?  $embedded : null;
+		echo ( $embedded = metadata($item, array('Item Type Metadata','Embed code')) ) ?  $embedded : null;
 		
 	}  
 	
