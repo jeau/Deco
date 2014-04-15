@@ -290,6 +290,10 @@ body.show .element-text {
 	font-size:1.3em;
 }
 
+.video-js-box{
+	clear: both;
+}
+
 .browse .item {
 	border-bottom:1px dotted #ccc;
 	padding-bottom:18px;
@@ -365,7 +369,7 @@ body#items.show .square_thumbnail img {
 	width:54px;
 	height:54px;
 	float:left;
-	margin-right:18px;
+	margin-right:3px;
 }
 
 body#items.show .fullsize img {
