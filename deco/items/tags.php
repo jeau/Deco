@@ -8,7 +8,7 @@
 		<?php echo deco_nav();?>
 	</div>
 
-	<?php echo tag_cloud($tags,url('items/browse')); ?>
+	<?php echo tag_cloud($tags,'items/browse'); ?>
 
 </div><!-- end primary -->
 
