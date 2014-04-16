@@ -38,19 +38,27 @@
 		<?php 
 		foreach(loop('Items') as $item):
 		set_current_record('Item',$item);
-		$item= get_current_record('Item');			
+		$item= get_current_record('Item');		
+		$type=$item->getItemType();		
 		?>
 			<div class="item hentry">    
 				<div class="item-meta">
 				    
 				<h2><?php echo link_to_item(metadata('Item',array('Dublin Core', 'Title'), array('class'=>'permalink'))); ?></h2>
 
-
-				<?php if (metadata('Item','has_thumbnail')): ?>
 				<div class="item-img">
-				<?php echo link_to_item(item_image('square_thumbnail',array('width'=>'120px','height'=>'auto'))); ?>	
+				<?php 
+				if (metadata('Item','has_thumbnail')){
+					echo link_to_item(item_image('square_thumbnail',array('width'=>'120px','height'=>'auto'))); 
+				}elseif( $type['name'] == 'Moving Image' ){
+					echo ($video_thumb=get_theme_option('video_thumb')) ? link_to_item('<img src="'.WEB_ROOT.'/files/theme_uploads/'.$video_thumb.'">') : null;
+				}elseif( $type['name'] == 'Sound' ){
+					echo ($audio_thumb=get_theme_option('audio_thumb')) ? link_to_item('<img src="'.WEB_ROOT.'/files/theme_uploads/'.$audio_thumb.'">') : null;
+				}elseif( $type['name'] == 'Document' ){
+					echo ($doc_thumb=get_theme_option('doc_thumb')) ? link_to_item('<img src="'.WEB_ROOT.'/files/theme_uploads/'.$doc_thumb.'">') : null;
+				}
+				?>
 				</div>
-				<?php endif; ?>
 				
 				<div class="item-description">				
 					<?php if ($text = metadata('Item',array('Item Type Metadata', 'Text'), array('snippet'=>350))): ?>
