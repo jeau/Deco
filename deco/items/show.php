@@ -142,6 +142,7 @@ echo __('<p><a class="edit" href="/admin/items/edit/'.$item->id.'">{Edit Item}</
 </li>
 </ul>
 
-
+<!-- Video JS init -->
+<script type="text/javascript">VideoJS.setupAllWhenReady();</script>
 
 <?php echo foot(); ?>
