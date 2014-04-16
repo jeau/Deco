@@ -2,12 +2,6 @@
 
 <h1><?php echo metadata('Item',array('Dublin Core','Title')); ?></h1>
 
-<!-- start FancyBox initialization and configuration -->
-<?php echo js_tag('fancybox/fancybox-init-config');?>		
-
-<!-- Video JS init -->
-<script type="text/javascript">VideoJS.setupAllWhenReady();</script>
-
 
 <div id="primary">
 	<div id="item-metadata">

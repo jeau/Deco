@@ -70,7 +70,21 @@
 	  stopPropagation: false,
 	  callback: function(index, elem) {},
 	  transitionEnd: function(index, elem) {}
-	});  		
+	});  	
+	
+	jQuery("a.fancyitem").fancybox({
+	type:'image', 
+	autoScale:'true',
+	overlayOpacity:0.75,
+	overlayColor:'#000',
+	titlePosition: 'over',
+	speedIn:500, 
+	speedOut:300,
+	'titleFormat': function(title, currentArray, currentIndex, currentOpts) {
+		return '<span id="fancybox-title-over">Image ' + (currentIndex + 1) 
+		+ ' / ' + currentArray.length + (title.length ? ' &nbsp; ' + title : '') + '</span>';
+	}
+		});
 		
 	// create the dropdown select	
 	(function(jQuery) { jQuery(function() {
@@ -134,7 +148,6 @@
 </script>
 
 		
-    </script>
 	
 </div><!-- end footer -->
 </div><!-- end wrap -->
