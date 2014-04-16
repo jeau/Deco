@@ -36,7 +36,8 @@
             <?php 
             $deco_get_recent_number=deco_get_recent_number();            
 	        set_loop_records('items', get_recent_items($deco_get_recent_number));
-	        if (has_loop_records('items')){            
+	        if (has_loop_records('items')){    
+	                
             ?>            
             
             <div class="items-list">
@@ -47,11 +48,20 @@
 
                     <h3><?php echo link_to_item(); ?></h3>
 
-                    <?php if(metadata($item,'has thumbnail')){ ?>
-                        <div class="item-img">
-                        <?php echo link_to_item(item_image('square_thumbnail',$item)); ?>                        
-                        </div>
-                    <?php } ?>
+					<div class="item-img">
+					<?php 
+					$type=$item->getItemType();	
+					if (metadata('Item','has_thumbnail')){
+						echo link_to_item(item_image('square_thumbnail',array('width'=>'120px','height'=>'auto'))); 
+					}elseif( $type['name'] == 'Moving Image' ){
+						echo ($video_thumb=get_theme_option('video_thumb')) ? link_to_item('<img src="'.WEB_ROOT.'/files/theme_uploads/'.$video_thumb.'">') : null;
+					}elseif( $type['name'] == 'Sound' ){
+						echo ($audio_thumb=get_theme_option('audio_thumb')) ? link_to_item('<img src="'.WEB_ROOT.'/files/theme_uploads/'.$audio_thumb.'">') : null;
+					}elseif( $type['name'] == 'Document' ){
+						echo ($doc_thumb=get_theme_option('doc_thumb')) ? link_to_item('<img src="'.WEB_ROOT.'/files/theme_uploads/'.$doc_thumb.'">') : null;
+					}
+				    ?>
+					</div>
 
                     <?php if($desc = metadata($item,array('Dublin Core', 'Description'), array('snippet'=>190))){ ?>
 
