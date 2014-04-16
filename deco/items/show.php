@@ -86,14 +86,17 @@
 	<div id="itemfiles" class="element">
 	    <h3>File(s)</h3>
 		<div class="element-text">
-		    <?php 			
+		    <?php 		
+		    $i=0;	
 			foreach (loop('Files',$item->Files) as $file):
 			echo '<div style="clear:both;padding:2px;">
 			<a class="download-file" name="files" href="'. file_display_url($file,'original'). '">'.
 			$file->original_filename.'</a>
 			&nbsp; ('.metadata($file, 'MIME Type').')
 			</div>';
-			endforeach;			
+			$i++;
+			endforeach;		
+			echo $i > 0 ? null : 'This item has no files.';	
 			?>
 		</div>
 	</div>
