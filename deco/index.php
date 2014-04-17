@@ -59,6 +59,8 @@
 						echo ($audio_thumb=get_theme_option('audio_thumb')) ? link_to_item('<img src="'.WEB_ROOT.'/files/theme_uploads/'.$audio_thumb.'">') : null;
 					}elseif( $type['name'] == 'Document' ){
 						echo ($doc_thumb=get_theme_option('doc_thumb')) ? link_to_item('<img src="'.WEB_ROOT.'/files/theme_uploads/'.$doc_thumb.'">') : null;
+					}elseif( $type['name'] == 'Website' ){
+						echo ($website_thumb=get_theme_option('website_thumb')) ? link_to_item('<img src="'.WEB_ROOT.'/files/theme_uploads/'.$website_thumb.'">') : null;
 					}
 				    ?>
 					</div>
